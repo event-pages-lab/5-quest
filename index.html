@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHUN QUEST β</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- パスワード画面 -->
+    <section id="passwordScreen" class="screen">
+      <h1 class="game-title">SHUN QUEST β</h1>
+      <p class="subtitle">あいことばを にゅうりょくせよ</p>
+
+      <input type="password" id="passwordInput" placeholder="あいことば">
+
+      <button id="passwordButton">▶ とびらを あける</button>
+    </section>
+
+    <!-- オープニング画面 -->
+    <section id="openingScreen" class="screen hidden">
+      <div id="openingText"></div>
+      <button id="openingButton" class="hidden">▶ はじめる</button>
+    </section>
+
+    <!-- タイトル画面 -->
+    <section id="titleScreen" class="screen hidden">
+      <div class="title-screen">
+        <h1 class="game-title">SHUN QUEST β</h1>
+        <p class="subtitle">はじまりの旅</p>
+
+        <div class="menu">
+          <button id="startButton" class="menu-button">▶ はじめから</button>
+          <button class="menu-button disabled" disabled>　つづきから</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 導入メッセージ -->
+    <section id="introScreen" class="screen hidden">
+      <div class="message-box">
+        <p id="messageText">
+          これは<br>
+          あたらしい冒険へ向かう<br>
+          とくべつなクエスト…
+        </p>
+        <button id="introNextButton" class="next-button">▶ つぎへ</button>
+      </div>
+    </section>
+
+<!-- クエスト一覧画面 -->
+<section id="questScreen" class="screen hidden">
+  <div class="quest-screen">
+    <div class="quest-label">QUEST LIST</div>
+    <h2 class="quest-title">たいとる</h2>
+
+    <!-- MAIN QUEST -->
+    <div class="quest-section">
+      <h3 class="section-title">MAIN QUEST</h3>
+
+      <div class="quest-list">
+        <div class="quest-card main-quest" data-unlock="subQuest1">
+          <div>
+            <p class="quest-number">QUEST 1</p>
+            <h3>やすらぎの地へ向かえ</h3>
+            <p>長いたたかいのあとは、まずHPを回復せよ。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+
+        <div class="quest-card main-quest" data-unlock="subQuest2">
+          <div>
+            <p class="quest-number">QUEST 2</p>
+            <h3>うまいものを食べよ</h3>
+            <p>おいしいものは、冒険者のちからになる。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+
+        <div class="quest-card main-quest" data-unlock="subQuest3">
+          <div>
+            <p class="quest-number">QUEST 3</p>
+            <h3>ゆっくり休め</h3>
+            <p>ここまで本当におつかれさまでした。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB QUEST -->
+    <div id="subQuestSection" class="quest-section hidden">
+      <h3 class="section-title">SUB QUEST</h3>
+
+      <div id="subQuest1" class="sub-quest-area hidden">
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 1-A</p>
+            <h3>景色をながめよ</h3>
+            <p>新しい冒険の前に、少しだけ深呼吸しよう。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 1-B</p>
+            <h3>おつかれさまを受け取れ</h3>
+            <p>ここまで本当に、よく頑張りました。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+      </div>
+
+      <div id="subQuest2" class="sub-quest-area hidden">
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 2-A</p>
+            <h3>うまいものを記録せよ</h3>
+            <p>今日のごはんを、冒険の思い出にしよう。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 2-B</p>
+            <h3>乾杯せよ</h3>
+            <p>あたらしい冒険のはじまりを祝おう。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+      </div>
+
+      <div id="subQuest3" class="sub-quest-area hidden">
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 3-A</p>
+            <h3>HPを回復せよ</h3>
+            <p>今日はなにも考えず、ゆっくり休むべし。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+
+        <div class="quest-card sub-quest">
+          <div>
+            <p class="quest-number">SUB QUEST 3-B</p>
+            <h3>明日の作戦を立てよ</h3>
+            <p>次の冒険に備えて、のんびり作戦会議。</p>
+          </div>
+          <button class="clear-button">▶ CLEAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECRET QUEST -->
+    <div id="secretQuestArea" class="quest-section">
+      <h3 class="section-title">SECRET QUEST</h3>
+      <div class="quest-card secret-quest">
+        <div>
+          <p class="quest-number">SECRET QUEST</p>
+          <h3>？？？？？？</h3>
+          <p>まだ条件を満たしていないようだ…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANDOM QUEST -->
+    <div id="randomQuestArea" class="quest-section">
+      <h3 class="section-title">RANDOM QUEST</h3>
+
+      <div class="quest-card random-quest">
+        <div>
+          <p class="quest-number">RANDOM QUEST</p>
+          <h3 id="randomQuestTitle">？？？</h3>
+          <p id="randomQuestText">ボタンを押すと、今日のクエストが現れる…</p>
+        </div>
+        <button id="randomQuestButton" class="random-button">▶ クエストをひく</button>
+        <button id="randomQuestClearButton" class="clear-button hidden">▶ CLEAR</button>
+      </div>
+
+      <div id="randomQuestHistory" class="random-history hidden">
+        <h4>旅の記録</h4>
+        <ul id="randomQuestHistoryList"></ul>
+      </div>
+    </div>
+
+    <button id="endingButton" class="next-button">▶ 旅を終える</button>
+  </div>
+</section>
+
+    <!-- エンディング画面 -->
+    <section id="endingScreen" class="screen hidden">
+      <div class="message-box">
+        <p id="endingText"></p>
+
+        <button id="nextDayButton" class="next-button">
+          ▶ つぎへ
+        </button>
+      </div>
+    </section>
+
+    <!-- 手紙画面 -->
+    <section id="letterScreen" class="screen hidden">
+      <div class="message-box letter-box">
+        <p id="letterText">
+          ここに手紙を書く
+        </p>
+        <button id="closeLetterButton" class="next-button">▶ とじる</button>
+      </div>
+    </section>
+
+    <!-- 最後の黒画面 -->
+    <section id="finalScreen" class="screen hidden">
+      <div id="finalText">
+        しゅんの<br>
+        あたらしい冒険が<br>
+        はじまる──
+      </div>
+    </section>
+  </div>
+
+  <div id="clearModal" class="clear-modal hidden">
+    <div class="clear-box">
+      <p>QUEST CLEAR!</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+body {
+  margin: 0;
+  background: black;
+  color: #f5f5f5;
+  font-family: 'DotGothic16', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 86%;
+  max-width: 760px;
+}
+
+.screen {
+  width: 100%;
+}
+
+/* 非表示 */
+.hidden {
+  display: none !important;
+}
+
+/* タイトル */
+.game-title {
+  font-size: 52px;
+  letter-spacing: 4px;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #ddd;
+  text-align: center;
+  margin: 0 0 36px;
+}
+
+/* 共通 */
+button {
+  background: black;
+  color: white;
+  border: 2px solid white;
+  padding: 12px 24px;
+  font-size: 22px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  background: white;
+  color: black;
+}
+
+input {
+  display: block;
+  width: 240px;
+  margin: 0 auto 24px;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: 2px solid white;
+  font-size: 20px;
+  font-family: inherit;
+  text-align: center;
+}
+
+input::placeholder {
+  color: #777;
+}
+
+/* オープニング */
+#passwordButton,
+#openingButton {
+  display: block;
+  margin: 0 auto;
+}
+
+#openingText {
+  font-size: 26px;
+  line-height: 2;
+  white-space: pre-line;
+}
+
+#openingButton {
+  margin-top: 36px;
+}
+
+/* タイトル画面 */
+.title-screen {
+  text-align: center;
+}
+
+.menu {
+  display: inline-block;
+  text-align: left;
+}
+
+.menu-button {
+  display: block;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  margin: 18px 0;
+  padding: 0;
+}
+
+.menu-button:hover {
+  background: none;
+  color: #ffff99;
+}
+
+.menu-button.disabled {
+  color: gray;
+  opacity: 0.5;
+  cursor: default;
+}
+
+.menu-button.disabled:hover {
+  color: gray;
+}
+
+/* メッセージ */
+.message-box {
+  border: 4px solid white;
+  padding: 30px;
+  background: #111;
+}
+
+.message-box p,
+#messageText {
+  font-size: 28px;
+  line-height: 2;
+  margin: 0 0 32px;
+}
+
+.next-button {
+  display: block;
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 26px;
+}
+
+.next-button:hover {
+  background: none;
+  color: #ffff99;
+}
+
+/* DAY表示 */
+.day-text {
+  text-align: center;
+  font-size: 42px !important;
+  letter-spacing: 4px;
+}
+
+/* QUEST */
+.quest-screen {
+  text-align: center;
+}
+
+.quest-label {
+  display: inline-block;
+  border: 2px solid white;
+  padding: 8px 20px;
+  font-size: 22px;
+  margin-bottom: 18px;
+  letter-spacing: 2px;
+}
+
+.quest-title {
+  font-size: 38px;
+  margin: 0 0 28px;
+  letter-spacing: 3px;
+}
+
+.quest-section {
+  border: 3px solid white;
+  padding: 18px;
+  margin: 24px 0;
+  background: #080808;
+}
+
+.section-title {
+  margin: 0 0 16px;
+  font-size: 24px;
+  color: #ffff99;
+  text-align: left;
+}
+
+.quest-list,
+.sub-quest-area {
+  display: grid;
+  gap: 16px;
+}
+
+.sub-quest-area {
+  margin-top: 16px;
+}
+
+.quest-card {
+  border: 3px solid white;
+  background: #111;
+  padding: 18px;
+  text-align: left;
+}
+
+.quest-card h3 {
+  margin: 4px 0 8px;
+  font-size: 24px;
+}
+
+.quest-card p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.quest-number {
+  color: #ffff99;
+  font-size: 16px;
+}
+
+.sub-quest {
+  border-style: dashed;
+}
+
+.secret-quest {
+  border-color: #ffff99;
+}
+
+/* CLEAR */
+.clear-button {
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.quest-card.clear {
+  border-color: #ffff99;
+  color: #ffff99;
+}
+
+.quest-card.clear .clear-button {
+  color: gray;
+  border-color: gray;
+  cursor: default;
+}
+
+/* CLEARモーダル */
+.clear-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  justify-content: center;
+  align-items: center;
+}
+
+.clear-modal.show {
+  display: flex;
+}
+
+.clear-box {
+  border: 4px solid white;
+  background: black;
+  padding: 36px 48px;
+  font-size: 34px;
+  animation: pop .25s ease;
+}
+
+.random-button {
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.unlock-text {
+  color: #ffff99;
+  font-size: 28px;
+}
+
+.random-button {
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.random-history {
+  margin-top: 20px;
+  border-top: 2px dashed white;
+  padding-top: 16px;
+  text-align: left;
+}
+
+.random-history h4 {
+  margin: 0 0 12px;
+  color: #ffff99;
+  font-size: 20px;
+}
+
+.random-history ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.random-history li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+#finalScreen {
+  text-align: center;
+}
+
+#finalText {
+  font-size: 32px;
+  line-height: 2;
+  letter-spacing: 3px;
+}
+
+.letter-box {
+  border: 4px solid #ffff99;
+}
+
+#letterText {
+  font-size: 22px;
+  line-height: 2;
+}
+@keyframes pop {
+  from {
+    transform: scale(.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* スマホ */
+@media (max-width: 520px) {
+
+  .container {
+    width: 90%;
+  }
+
+  .game-title {
+    font-size: 38px;
+  }
+
+  #openingText,
+  .message-box p,
+  #messageText {
+    font-size: 22px;
+  }
+
+  .quest-title {
+    font-size: 30px;
+  }
+
+  .day-text {
+    font-size: 32px !important;
+  }
+}
