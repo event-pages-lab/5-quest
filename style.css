@@ -319,15 +319,35 @@ input::placeholder {
   line-height: 2;
   letter-spacing: 3px;
 }
-
+/* 手紙画面 */
 .letter-box {
-  border: 4px solid #ffff99;
+  background: #1a1a1a;
+  border:2px solid #f4e7c5;
+  box-shadow:0 0 18px rgba(255, 230, 180, 0.18);
+  width: min(92%, 500px);
+  padding: 32px 28px;
+  color: #f8f4e8;
+  line-height: 1.9;
 }
 
 #letterText {
-  font-size: 22px;
-  line-height: 2;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 0.05em;
 }
+
+.letter-box .next-button {
+  margin-top: 24px;
+
+  color: #f4e7c5;
+  border-color: #f4e7c5;
+}
+
+.letter-box .next-button:hover {
+  background: #f4e7c5;
+  color: #111;
+}
+
 @keyframes pop {
   from {
     transform: scale(.8);
