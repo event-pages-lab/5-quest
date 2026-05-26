@@ -51,8 +51,59 @@ DAY 1 CLEAR!
 
 長いたたかいのあとは
 まずはHPを回復するのだ。
-`
-  },
+`,
+    quests: [
+    {
+      mainTitle: "冒険の地へ向かえ",
+      mainText: "未知なる旅が、いま始まる──",
+      sub: [
+        {
+          title: "景色をながめよ",
+          text: "旅の始まりを、目に焼き付けよう。"
+        },
+        {
+          title: "飲み物を確保せよ",
+          text: "冒険には回復アイテムが必要だ。"
+        }
+      ]
+    },
+
+    {
+      mainTitle: "この地のうまいものを食べよ",
+      mainText: "おいしいものは冒険者を強くする。",
+      sub: [
+        {
+          title: "乾杯せよ",
+          text: "新しい冒険のはじまりを祝おう。"
+        },
+        {
+          title: "忘れられない味に出会え",
+          text: "五感で忘れられない思い出を作ろう。"
+        }
+      ]
+    },
+
+    {
+      mainTitle: "思い出を記録せよ",
+      mainText: "今日の旅を未来のたからものにしよう。",
+      sub: [
+        {
+          title: "少し寄り道せよ",
+          text: "予定外の発見があるかもしれない。"
+        },
+        {
+          title: "明日の作戦を立てよ",
+          text: "次の冒険に備えて、のんびり作戦会議。"
+        }
+      ]
+    }
+  ],
+
+  secret: {
+    title: "ふたりの写真を撮れ",
+    text: "旅のはじまりを、1枚の記録に残そう。"
+  }
+},
   {
     day: "DAY 2──",
     intro: `
@@ -66,8 +117,58 @@ DAY 2 CLEAR!
 
 うまいものと景色が
 冒険者の心を満たした。
-`
-  },
+`,
+  quests: [
+    {
+      mainTitle: "未知のスポットを探索せよ",
+      mainText: "気になる場所へ突撃しよう。",
+      sub: [
+        {
+          title: "気になった場所へ入れ",
+          text: "直感を信じるのも冒険だ。"
+        },
+        {
+          title: "ご当地アイテムを発見せよ",
+          text: "その土地ならではの宝を探そう。"
+        }
+      ]
+    },
+    {
+      mainTitle: "今日だけの思い出を作れ",
+      mainText: "今しかない時間を楽しもう。",
+      sub: [
+        {
+          title: "楽しく乾杯せよ",
+          text: "今日の冒険について語り合おう。"
+        },
+        {
+          title: "変な写真を撮れ",
+          text: "旅のテンションを記録せよ。"
+        }
+      ]
+    },
+
+    {
+      mainTitle: "宿屋でHPを回復せよ",
+      mainText: "冒険者には休息も必要である。",
+      sub: [
+        {
+          title: "温泉を楽しめ",
+          text: "HPを全回復しよう。"
+        },
+        {
+          title: "明日の作戦を立てよ",
+          text: "冒険最終日に備えて、のんびり作戦会議。"
+        }
+      ]
+    }
+  ],
+
+  secret: {
+    title: "今日いちばんの景色を見つけよ",
+    text: "心に残る景色を、ふたりで見届けよう。"
+  }
+},
   {
     day: "DAY 3──",
     intro: `
@@ -83,9 +184,58 @@ DAY 2 CLEAR!
 ここは<br>
 あたらしい職業と<br>
 あたらしい冒険を選ぶ場所…
-`
+`,
+  quests: [
+    {
+      mainTitle: "旅のお気に入りを見つけよ",
+      mainText: "最後に最高の思い出を作ろう。",
+      sub: [
+        {
+          title: "おみやげを探せ",
+          text: "旅の記録を持ち帰ろう。"
+        },
+        {
+          title: "うまいものを食べよ",
+          text: "最後まで全力で楽しむべし。"
+        }
+      ]
+    },
+    {
+      mainTitle: "旅最終日を楽しもう",
+      mainText: "終わりまで思いきり冒険しよう。",
+      sub: [
+        {
+          title: "景色を目に焼き付けよ",
+          text: "この旅の記憶を忘れないように。"
+        },
+        {
+          title: "のんびり過ごせ",
+          text: "焦らない時間も大切だ。"
+        }
+      ]
+    },
+    {
+      mainTitle: "次の冒険への準備をせよ",
+      mainText: "新しい旅は、もう始まっている。",
+      sub: [
+        {
+          title: "これからの話をせよ",
+          text: "次の冒険について語り合おう。"
+        },
+        {
+          title: "未来への装備を整えよ",
+          text: "ゆっくりでも、一歩ずつ進めばいい。"
+        }
+      ]
+    }
+  ],
+
+  secret: {
+    title: "次の冒険の作戦を立てよ",
+    text: "旅の終わりに、これからの話を少しだけしよう。"
   }
-];
+}];
+
 
 const randomQuests = [
   {
@@ -295,9 +445,36 @@ endingButton.addEventListener("click", () => {
   questScreen.classList.add("hidden");
   endingScreen.classList.remove("hidden");
 
-  endingText.innerHTML =
-    days[currentDay].ending.replace(/\n/g, "<br>");
-    nextDayButton.textContent = "▶ つぎへ";
+  endingText.innerHTML = "";
+  nextDayButton.classList.add("hidden");
+
+  if (currentDay === 2) {
+    let endingIndex = 0;
+    const text = days[currentDay].ending;
+    function typeEndingText() {
+      if (endingIndex < text.length) {
+        if (text.substring(endingIndex, endingIndex + 4) === "<br>") {
+          endingText.innerHTML += "<br>";
+          endingIndex += 4;
+        } else if (text.charAt(endingIndex) === "\n") {
+          endingText.innerHTML += "<br>";
+          endingIndex++;
+        } else {
+          endingText.innerHTML += text.charAt(endingIndex);
+          endingIndex++;
+        }
+        setTimeout(typeEndingText, 70);
+      } else {
+        nextDayButton.classList.remove("hidden");
+      }
+    }
+    typeEndingText();
+  } else {
+    endingText.innerHTML =
+      days[currentDay].ending.replace(/\n/g, "<br>");
+    nextDayButton.classList.remove("hidden");
+  }
+  nextDayButton.textContent = "▶ つぎへ";
 });
 
 nextDayButton.addEventListener("click", () => {
@@ -323,3 +500,24 @@ closeLetterButton.addEventListener("click", () => {
   letterScreen.classList.add("hidden");
   finalScreen.classList.remove("hidden");
 });
+
+function typeText(element, text, speed = 60) {
+  element.innerHTML = "";
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      if (text.substring(i, i + 4) === "<br>") {
+        element.innerHTML += "<br>";
+        i += 4;
+      } else if (text[i] === "\n") {
+        element.innerHTML += "<br>";
+        i++;
+      } else {
+        element.innerHTML += text[i];
+        i++;
+      }
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
