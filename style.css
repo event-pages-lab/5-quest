@@ -391,6 +391,23 @@ body {
   margin-bottom: 2px;
   font-size: 11px;
 }
+#continueText {
+  margin-top: 40px;
+  opacity: 0;
+  font-size: 18px;
+  line-height: 1.8;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 4s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes pop {
   from {
