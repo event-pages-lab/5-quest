@@ -342,6 +342,7 @@ introNextButton.addEventListener("click", () => {
   resetQuestScreen();
   introScreen.classList.add("hidden");
   questScreen.classList.remove("hidden");
+  secretQuestArea.classList.remove("hidden");
 });
 
 function resetQuestScreen() {
@@ -372,6 +373,9 @@ function resetQuestScreen() {
   randomQuestText.textContent = "ボタンを押すと、今日のクエストが現れる…";
   randomQuestButton.textContent = "▶ クエストをひく";
   randomQuestClearButton.classList.add("hidden");
+  secretQuestArea.querySelector(".secret-quest h3").textContent = "？？？？？？";
+  secretQuestArea.querySelector(".secret-quest p:not(.quest-number)").textContent =
+    "まだ条件を満たしていないようだ…";
 }
 
 // 通常CLEARボタン
@@ -386,6 +390,7 @@ document.querySelectorAll(".clear-button").forEach(button => {
     card.classList.add("clear");
     button.disabled = true;
     button.textContent = "CLEAR済";
+    checkSecretUnlock();
 
     if (card.classList.contains("main-quest")) {
       const targetId = card.dataset.unlock;
@@ -405,6 +410,36 @@ document.querySelectorAll(".clear-button").forEach(button => {
 
     showModal("QUEST CLEAR!");
   });
+  function checkSecretUnlock() {
+    const clearedQuests =
+      document.querySelectorAll(".quest-card.clear").length;
+
+    const secretTitle =secretQuestArea.querySelector(".secret-quest h3");
+
+    // 4つ以上CLEARで解放
+    if (
+      clearedQuests >= 4 &&
+      secretTitle.textContent === "？？？？？？"
+    ) {
+
+      // SECRET内容を表示
+      secretTitle.textContent =
+        days[currentDay].secret.title;
+
+      secretQuestArea
+        .querySelector(".secret-quest p:not(.quest-number)")
+        .textContent =
+          days[currentDay].secret.text;
+
+      // 解放演出
+      showModal(`
+        SECRET QUEST 解放！<br>
+        <span class="unlock-text">
+          特別なイベントが発生した！
+        </span>
+      `, 1600);
+    }
+  }
 });
 
 // ランダムクエストをひく
