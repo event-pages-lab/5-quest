@@ -394,6 +394,9 @@ function resetQuestScreen() {
   secretQuestArea.querySelector(".secret-quest h3").textContent = "？？？？？？";
   secretQuestArea.querySelector(".secret-quest p:not(.quest-number)").textContent =
     "まだ条件を満たしていないようだ…";
+  const secretButton = secretQuestArea.querySelector(".secret-quest .clear-button");
+  secretButton.disabled = true;
+  secretButton.classList.add("hidden");
 }
 
 // 通常CLEARボタン
@@ -443,12 +446,14 @@ document.querySelectorAll(".clear-button").forEach(button => {
       // SECRET内容を表示
       secretTitle.textContent =
         days[currentDay].secret.title;
-
       secretQuestArea
         .querySelector(".secret-quest p:not(.quest-number)")
         .textContent =
           days[currentDay].secret.text;
 
+      const secretButton = secretQuestArea.querySelector(".secret-quest .clear-button");
+      secretButton.disabled = false;
+      secretButton.classList.remove("hidden");
       // 解放演出
       showModal(`
         SECRET QUEST 解放！<br>
