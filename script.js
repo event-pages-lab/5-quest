@@ -1,4 +1,4 @@
-const correctPassword = "さかもとりょうま";
+const correctPassword = "SR";
 
 const passwordScreen = document.getElementById("passwordScreen");
 const openingScreen = document.getElementById("openingScreen");
