@@ -15,7 +15,11 @@ body {
 }
 
 .screen {
-  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 非表示 */
@@ -346,6 +350,36 @@ input::placeholder {
 .letter-box .next-button:hover {
   background: #f4e7c5;
   color: #111;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.letter-box {
+  max-width: calc(100vw - 32px);
+}
+
+.quest-card {
+  gap: 12px;
+}
+
+.quest-card h3 {
+  margin: 4px 0 6px;
+  line-height: 1.35;
+}
+
+.quest-card p {
+  margin: 2px 0;
+  line-height: 1.45;
+}
+
+.quest-number {
+  margin-bottom: 4px;
 }
 
 @keyframes pop {
