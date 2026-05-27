@@ -1,271 +1,579 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHUN QUEST β</title>
+const correctPassword = "さかもとりょうま";
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+const passwordScreen = document.getElementById("passwordScreen");
+const openingScreen = document.getElementById("openingScreen");
+const titleScreen = document.getElementById("titleScreen");
+const introScreen = document.getElementById("introScreen");
+const questScreen = document.getElementById("questScreen");
+const endingScreen = document.getElementById("endingScreen");
 
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+const passwordInput = document.getElementById("passwordInput");
+const passwordButton = document.getElementById("passwordButton");
 
-  <div class="container">
+const openingElement = document.getElementById("openingText");
+const openingButton = document.getElementById("openingButton");
 
-    <!-- パスワード画面 -->
-    <section id="passwordScreen" class="screen">
-      <h1 class="game-title">SHUN QUEST β</h1>
-      <p class="subtitle">あいことばを にゅうりょくせよ</p>
+const startButton = document.getElementById("startButton");
+const introNextButton = document.getElementById("introNextButton");
+const messageText = document.getElementById("messageText");
 
-      <input type="password" id="passwordInput" placeholder="あいことば">
+const subQuestSection = document.getElementById("subQuestSection");
+const secretQuestArea = document.getElementById("secretQuestArea");
 
-      <button id="passwordButton">▶ とびらを あける</button>
-    </section>
+const randomQuestTitle = document.getElementById("randomQuestTitle");
+const randomQuestText = document.getElementById("randomQuestText");
+const randomQuestButton = document.getElementById("randomQuestButton");
+const randomQuestClearButton = document.getElementById("randomQuestClearButton");
+const randomQuestHistory = document.getElementById("randomQuestHistory");
+const randomQuestHistoryList = document.getElementById("randomQuestHistoryList");
 
-    <!-- オープニング画面 -->
-    <section id="openingScreen" class="screen hidden">
-      <div id="openingText"></div>
-      <button id="openingButton" class="hidden">▶ はじめる</button>
-    </section>
+const letterScreen = document.getElementById("letterScreen");
+const closeLetterButton = document.getElementById("closeLetterButton");
+const finalScreen = document.getElementById("finalScreen");
 
-    <!-- タイトル画面 -->
-    <section id="titleScreen" class="screen hidden">
-      <div class="title-screen">
-        <h1 class="game-title">SHUN QUEST β</h1>
-        <p class="subtitle">はじまりの旅</p>
+const endingButton = document.getElementById("endingButton");
+const endingText = document.getElementById("endingText");
+const nextDayButton = document.getElementById("nextDayButton");
 
-        <div class="menu">
-          <button id="startButton" class="menu-button">▶ はじめから</button>
-          <button class="menu-button disabled" disabled>　つづきから</button>
-        </div>
-      </div>
-    </section>
+const clearModal = document.getElementById("clearModal");
+const clearModalText = clearModal.querySelector("p");
 
-    <!-- 導入メッセージ -->
-    <section id="introScreen" class="screen hidden">
-      <div class="message-box">
-        <p id="messageText">
-          これは<br>
-          あたらしい冒険へ向かう<br>
-          とくべつなクエスト…
-        </p>
-        <button id="introNextButton" class="next-button">▶ つぎへ</button>
-      </div>
-    </section>
+const days = [
+  {
+    day: "DAY 1──",
+    intro: `
+これは<br>
+あたらしい冒険へ向かう<br>
+とくべつなクエスト…
+`,
+    ending: `
+DAY 1 CLEAR!
 
-<!-- クエスト一覧画面 -->
-<section id="questScreen" class="screen hidden">
-  <div class="quest-screen">
-    <div class="quest-label">QUEST LIST</div>
-    <h2 class="quest-title">しゅんのぼうけん</h2>
+長いたたかいのあとは
+まずはHPを回復するのだ。
+`,
+    quests: [
+    {
+      mainTitle: "冒険の地、土佐へ向かえ",
+      mainText: "未知なる旅が、いま始まる──",
+      sub: [
+        {
+          title: "景色をながめよ",
+          text: "旅の始まりを、目に焼き付けよう。"
+        },
+        {
+          title: "飲み物を確保せよ",
+          text: "冒険には回復アイテムが必要だ。"
+        }
+      ]
+    },
 
-    <!-- MAIN QUEST -->
-    <div class="quest-section">
-      <h3 class="section-title">MAIN QUEST</h3>
+    {
+      mainTitle: "土佐のうまいもんを食べよ",
+      mainText: "うまいもんは、冒険者を強うする。。",
+      sub: [
+        {
+          title: "土佐の味に出会え",
+          text: "忘れられん一品を探そう。"
+        },
+        {
+          title: "まぁ飲めや",
+          text: "長旅のあとは、まず乾杯ぜよ。"
+        }
+      ]
+    },
 
-      <div class="quest-list">
-        <div class="quest-card main-quest" data-unlock="subQuest1">
-          <div>
-            <p class="quest-number">QUEST 1</p>
-            <h3>冒険の地へ向かえ</h3>
-            <p>未知なる旅が、いま始まる──</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
+    {
+      mainTitle: "旅のはじまりを記録せよ",
+      mainText: "今日の旅を未来の宝物にしよう。",
+      sub: [
+        {
+          title: "少し寄り道せよ",
+          text: "予定外の発見があるかもしれない。"
+        },
+        {
+          title: "明日の作戦を立てよ",
+          text: "次の冒険に備えて、のんびり作戦会議。"
+        }
+      ]
+    }
+  ],
 
-        <div class="quest-card main-quest" data-unlock="subQuest2">
-          <div>
-            <p class="quest-number">QUEST 2</p>
-            <h3>この地のうまいものを食べよ</h3>
-            <p>おいしいものは冒険者を強くする。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
+  secret: {
+    title: "ふたりの写真を撮れ",
+    text: "旅のはじまりを、1枚の記録に残そう。"
+  }
+},
+  {
+    day: "DAY 2──",
+    intro: `
+旅は まだ つづく。<br>
+きょうは<br>
+うまいものと温泉をめぐる<br>
+癒しのぼうけん…
+`,
+    ending: `
+DAY 2 CLEAR!
 
-        <div class="quest-card main-quest" data-unlock="subQuest3">
-          <div>
-            <p class="quest-number">QUEST 3</p>
-            <h3>思い出を記録せよ</h3>
-            <p>今日の旅を未来のたからものにしよう。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
-      </div>
-    </div>
+うまいものと歴史ある湯が
+冒険者の心を満たした。
+`,
+  quests: [
+    {
+      mainTitle: "温泉の町へ向かえ",
+      mainText: "土佐をあとにし、道後の地を目指そう。",
+      sub: [
+        {
+          title: "移動中の景色を楽しめ",
+          text: "のんびり進むのも、旅の醍醐味ながやき。"
+        },
+        {
+          title: "休憩ポイントを見つけよ",
+          text: "無理せず回復するのも大事だ。"
+        }
+      ]
+    },
+    {
+      mainTitle: "道後の湯でHPを回復せよ",
+      mainText: "えい湯につかって、疲れを吹き飛ばそう。",
+      sub: [
+        {
+          title: "湯上がりの一杯を確保せよ",
+          text: "回復後の一杯は格別ながよ。"
+        },
+        {
+          title: "温泉街を散策せよ",
+          text: "ぶらぶら歩くだけでも、えい時間ながやき。"
+        }
+      ]
+    },
 
-    <!-- SUB QUEST -->
-    <div id="subQuestSection" class="quest-section hidden">
-      <h3 class="section-title">SUB QUEST</h3>
+    {
+      mainTitle: "夜の温泉街を楽しめ",
+      mainText: "旅の夜には思わぬイベントが待っている。",
+      sub: [
+        {
+          title: "今日いちばんの顔を記録せよ",
+          text: "今しかない瞬間を残そう。"
+        },
+        {
+          title: "明日の作戦を立てよ",
+          text: "冒険最終日に備えて、のんびり作戦会議。"
+        }
+      ]
+    }
+  ],
 
-      <div id="subQuest1" class="sub-quest-area hidden">
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 1-A</p>
-            <h3>景色をながめよ</h3>
-            <p>旅の始まりを、目に焼き付けよう。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
+  secret: {
+    title: "湯上がりイベントを発生させよ",
+    text: "ふたりでのんびり、特別な夜を楽しもう。"
+  }
+},
+  {
+    day: "DAY 3──",
+    intro: `
+最後の朝がきた。<br>
+しゅんを待つのは<br>
+あたらしい冒険への<br>
+クエスト…
+`,
+    ending: `
+旅の終わりに<br>
+しゅんは<br>
+ダーマ神殿へたどりついた。<br><br>
+ここは<br>
+あたらしい職業と<br>
+あたらしい冒険を選ぶ場所…
+`,
+  quests: [
+    {
+      mainTitle: "最後の寄り道をせよ",
+      mainText: "旅の終わりに、もうひとつ思い出を。",
+      sub: [
+        {
+          title: "最後の景色を目に焼き付けよ",
+          text: "この旅も、もう終わりながやき。"
+        },
+        {
+          title: "うまいものを食べ納めよ",
+          text: "最後まで全力で楽しむべし。"
+        }
+      ]
+    },
+    {
+      mainTitle: "旅のおみやげを手に入れよ",
+      mainText: "思い出を持ち帰るのも、冒険者の大事な役目。",
+      sub: [
+        {
+          title: "自分へのおみやげを選べ",
+          text: "旅の記録を持ち帰ろう。"
+        },
+        {
+          title: "旅のベストシーンを決めよ",
+          text: "いちばんの思い出を振り返ろう。。"
+        }
+      ]
+    },
+    {
+      mainTitle: "次の冒険へ帰還せよ",
+      mainText: "空の旅を越えて、新しい日々へ向かおう。",
+      sub: [
+        {
+          title: "これからの話をせよ",
+          text: "次の冒険について、ぼちぼち語り合おう。"
+        },
+        {
+          title: "未来への装備を整えよ",
+          text: "ゆっくりでも、一歩ずつ進めばいい。"
+        }
+      ]
+    }
+  ],
 
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 1-B</p>
-            <h3>飲み物を確保せよ</h3>
-            <p>冒険には回復アイテムが必要だ。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
-      </div>
+  secret: {
+    title: "次の冒険の作戦を立てよ",
+    text: "旅の終わりに、これからの話を少しだけしようや。"
+  }
+}];
 
-      <div id="subQuest2" class="sub-quest-area hidden">
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 2-A</p>
-            <h3>乾杯せよ</h3>
-            <p>新しい冒険のはじまりを祝おう。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
 
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 2-B</p>
-            <h3>忘れられない味に出会え</h3>
-            <p>五感で忘れられない思い出を作ろう。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
-      </div>
+const randomQuests = [
+  {
+    title: "いい景色を見つけよ",
+    text: "しゅんが「おお…」となる景色を探せ。"
+  },
+  {
+    title: "うまいものを発見せよ",
+    text: "今日いちばんテンションが上がる一品を見つけよ。"
+  },
+  {
+    title: "写真を1枚残せ",
+    text: "この旅の記録として、思い出の写真を1枚撮ろう。"
+  },
+  {
+    title: "変な写真を撮れ",
+    text: "あとで見返して笑える1枚を残そう。"
+  },
+  {
+    title: "ご当地アイスを食べよ",
+    text: "旅先の甘味は、MP回復に有効だ。"
+  },
+  {
+    title: "おそろいを見つけよ",
+    text: "旅のどこかで“同じもの”を探してみよう。"
+  },
+  {
+    title: "ラッキースポットを探せ",
+    text: "なんだか気になる場所へ向かってみよう。"
+  },
+  {
+    title: "楽しい！を見つけよ",
+    text: "旅にはハプニングがつきもの。それも楽しいよね。"
+  },
+  {
+    title: "のんびり歩け",
+    text: "目的地に急がず、少しだけ寄り道してみよう。"
+  }
+];
 
-      <div id="subQuest3" class="sub-quest-area hidden">
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 3-A</p>
-            <h3>少し寄り道せよ</h3>
-            <p>予定外の発見があるかもしれない。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
+let currentDay = 0;
+let introStep = 0;
+let openingIndex = 0;
+let currentRandomQuest = null;
 
-        <div class="quest-card sub-quest">
-          <div>
-            <p class="quest-number">SUB QUEST 3-B</p>
-            <h3>明日の作戦を立てよ</h3>
-            <p>次の冒険に備えて、のんびり作戦会議。</p>
-          </div>
-          <button class="clear-button">▶ CLEAR</button>
-        </div>
-      </div>
-    </div>
+const openingText = `
+2026年 5月──
 
-    <!-- SECRET QUEST -->
-    <div id="secretQuestArea" class="quest-section">
-      <h3 class="section-title">SECRET QUEST</h3>
-      <div class="quest-card secret-quest">
-        <div>
-          <p class="quest-number">SECRET QUEST</p>
-          <h3>？？？？？？</h3>
-          <p>まだ条件を満たしていないようだ…</p>
-        </div>
-        <button class="clear-button">▶ CLEAR</button>
-      </div>
-    </div>
+長いたたかいを終えた
+ひとりの戦士がいた。
 
-    <!-- RANDOM QUEST -->
-    <div id="randomQuestArea" class="quest-section">
-      <h3 class="section-title">RANDOM QUEST</h3>
+これは
+あたらしい冒険へ向かう
+旅の記録である。
+`;
 
-      <div class="quest-card random-quest">
-        <div>
-          <p class="quest-number">RANDOM QUEST</p>
-          <h3 id="randomQuestTitle">？？？</h3>
-          <p id="randomQuestText">ボタンを押すと、今日のクエストが現れる…</p>
-        </div>
-        <button id="randomQuestButton" class="random-button">▶ クエストをひく</button>
-        <button id="randomQuestClearButton" class="clear-button hidden">▶ CLEAR</button>
-      </div>
+function showModal(html, time = 1200) {
+  clearModalText.innerHTML = html;
+  clearModal.classList.remove("hidden");
+  clearModal.classList.add("show");
 
-      <div id="randomQuestHistory" class="random-history hidden">
-        <h4>旅の記録</h4>
-        <ul id="randomQuestHistoryList"></ul>
-      </div>
-    </div>
+  setTimeout(() => {
+    clearModal.classList.remove("show");
+    clearModal.classList.add("hidden");
+    clearModalText.innerHTML = "QUEST CLEAR!";
+  }, time);
+}
 
-    <button id="endingButton" class="next-button">▶ 旅を終える</button>
-  </div>
-</section>
+function startOpening() {
+  openingElement.innerHTML = "";
+  openingButton.classList.add("hidden");
+  window.scrollTo(0, 0);
+  openingIndex = 0;
+  typeOpeningText();
+}
 
-    <!-- エンディング画面 -->
-    <section id="endingScreen" class="screen hidden">
-      <div class="message-box">
-        <p id="endingText"></p>
+function typeOpeningText() {
+  if (openingIndex < openingText.length) {
+    openingElement.innerHTML += openingText.charAt(openingIndex);
+    openingIndex++;
+    setTimeout(typeOpeningText, 70);
+  } else {
+    openingButton.classList.remove("hidden");
+    window.scrollTo(0, 0);
+  }
+}
 
-        <button id="nextDayButton" class="next-button">
-          ▶ つぎへ
-        </button>
-      </div>
-    </section>
+passwordButton.addEventListener("click", () => {
+  if (passwordInput.value === correctPassword) {
+    passwordScreen.classList.add("hidden");
+    openingScreen.classList.remove("hidden");
+    startOpening();
+  } else {
+    alert("あいことばが ちがいます");
+  }
+});
 
-    <!-- 手紙画面 -->
-    <section id="letterScreen" class="screen hidden">
-      <div class="message-box letter-box">
-        <p id="letterText">
-          しゅんへ<br><br>
+openingButton.addEventListener("click", () => {
+  openingScreen.classList.add("hidden");
+  titleScreen.classList.remove("hidden");
+});
 
-          今回の旅、<br>
-          そしてミニクエストは楽しめましたか？<br><br>
+startButton.addEventListener("click", () => {
+  titleScreen.classList.add("hidden");
+  introScreen.classList.remove("hidden");
 
-          今回は勝手に、<br>
-          「転職おめでとうクエスト」<br>
-          みたいな気持ちで作ってみました。<br><br>
+  messageText.classList.remove("day-text");
+  messageText.innerHTML = days[currentDay].intro;
+  introNextButton.textContent = "▶ つぎへ";
+  introStep = 0;
+});
 
-          長いたたかい、本当におつかれさま。よく頑張りました。<br><br>
+introNextButton.addEventListener("click", () => {
+  if (introStep === 0) {
+    messageText.innerHTML = days[currentDay].day;
+    messageText.classList.add("day-text");
+    introNextButton.textContent = "▶ はじめる";
+    introStep = 1;
+    return;
+  }
 
-          初めての転職で、きっと不安なことも<br>
-          ドキドキもたくさんあると思います。<br><br>
+  resetQuestScreen();
+  introScreen.classList.add("hidden");
+  questScreen.classList.remove("hidden");
+  secretQuestArea.classList.remove("hidden");
+});
 
-          でも、<br>
-          まっすぐ頑張れるしゅんなら<br>
-          きっと大丈夫。<br><br>
+function resetQuestScreen() {
+  endingButton.textContent = `▶ ${currentDay + 1}日目を終える`;
+  subQuestSection.classList.add("hidden");
 
-          ゆっくりでも、<br>
-          しゅんらしく進んでいけば<br>
-          絶対にいい人生の旅路になると思ってます。<br><br>
+  document.querySelectorAll(".sub-quest-area").forEach(area => {
+    area.classList.add("hidden");
+  });
 
-          これから始まる新しい旅も<br>
-          たくさん笑って、<br>
-          たくさん楽しめますように。<br><br>
+  secretQuestArea.classList.remove("hidden");
 
-          私も隣で応援しています。<br><br>
+  document.querySelectorAll(".quest-card").forEach(card => {
+    if (!card.classList.contains("random-quest")) {
+      card.classList.remove("clear");
+    }
+  });
 
-          改めて、転職おめでとう！<br><br>
+  document.querySelectorAll(".clear-button").forEach(button => {
+    if (button.id !== "randomQuestClearButton") {
+      button.disabled = false;
+      button.textContent = "▶ CLEAR";
+    }
+  });
 
-          P.S.<br>
-          また一緒に冒険しよう！<br>
-        </p>
-        <button id="closeLetterButton" class="next-button">▶ とじる</button>
-      </div>
-    </section>
+  currentRandomQuest = null;
+  randomQuestTitle.textContent = "？？？";
+  randomQuestText.textContent = "ボタンを押すと、今日のクエストが現れる…";
+  randomQuestButton.textContent = "▶ クエストをひく";
+  randomQuestClearButton.classList.add("hidden");
+  secretQuestArea.querySelector(".secret-quest h3").textContent = "？？？？？？";
+  secretQuestArea.querySelector(".secret-quest p:not(.quest-number)").textContent =
+    "まだ条件を満たしていないようだ…";
+}
 
-    <!-- 最後の黒画面 -->
-    <section id="finalScreen" class="screen hidden">
-      <div id="finalText">
-        しゅんの<br>
-        あたらしい冒険が<br>
-        はじまる──
-      </div>
-    </section>
-  </div>
+// 通常CLEARボタン
+document.querySelectorAll(".clear-button").forEach(button => {
+  if (button.id === "randomQuestClearButton") return;
 
-  <div id="clearModal" class="clear-modal hidden">
-    <div class="clear-box">
-      <p>QUEST CLEAR!</p>
-    </div>
-  </div>
+  button.addEventListener("click", () => {
+    if (button.disabled) return;
 
-  <script src="script.js"></script>
-</body>
-</html>
+    const card = button.closest(".quest-card");
+
+    card.classList.add("clear");
+    button.disabled = true;
+    button.textContent = "CLEAR済";
+    checkSecretUnlock();
+
+    if (card.classList.contains("main-quest")) {
+      const targetId = card.dataset.unlock;
+
+      if (targetId) {
+        subQuestSection.classList.remove("hidden");
+        document.getElementById(targetId).classList.remove("hidden");
+
+        showModal(`
+          CLEAR！<br>
+          <span class="unlock-text">サブクエストが開放された！</span>
+        `, 1400);
+
+        return;
+      }
+    }
+
+    showModal("QUEST CLEAR!");
+  });
+  function checkSecretUnlock() {
+    const clearedQuests =
+      document.querySelectorAll(".quest-card.clear").length;
+
+    const secretTitle =secretQuestArea.querySelector(".secret-quest h3");
+
+    // 4つ以上CLEARで解放
+    if (
+      clearedQuests >= 4 &&
+      secretTitle.textContent === "？？？？？？"
+    ) {
+
+      // SECRET内容を表示
+      secretTitle.textContent =
+        days[currentDay].secret.title;
+
+      secretQuestArea
+        .querySelector(".secret-quest p:not(.quest-number)")
+        .textContent =
+          days[currentDay].secret.text;
+
+      // 解放演出
+      showModal(`
+        SECRET QUEST 解放！<br>
+        <span class="unlock-text">
+          特別なイベントが発生した！
+        </span>
+      `, 1600);
+    }
+  }
+});
+
+// ランダムクエストをひく
+randomQuestButton.addEventListener("click", () => {
+  const randomIndex = Math.floor(Math.random() * randomQuests.length);
+  const quest = randomQuests[randomIndex];
+
+  currentRandomQuest = quest;
+
+  randomQuestTitle.textContent = quest.title;
+  randomQuestText.textContent = quest.text;
+  randomQuestButton.textContent = "▶ もう一度ひく";
+  randomQuestClearButton.classList.remove("hidden");
+});
+
+// ランダムクエストCLEAR
+randomQuestClearButton.addEventListener("click", () => {
+  if (!currentRandomQuest) return;
+
+  const dayLabel = days[currentDay].day.replace("──", "");
+
+  const li = document.createElement("li");
+  li.textContent = `${dayLabel}：${currentRandomQuest.title}`;
+  randomQuestHistoryList.appendChild(li);
+
+  randomQuestHistory.classList.remove("hidden");
+
+  showModal("RANDOM QUEST CLEAR!");
+
+  currentRandomQuest = null;
+  randomQuestTitle.textContent = "？？？";
+  randomQuestText.textContent = "ボタンを押すと、おまけのクエストが現れる…";
+  randomQuestButton.textContent = "▶ クエストをひく";
+  randomQuestClearButton.classList.add("hidden");
+});
+
+endingButton.addEventListener("click", () => {
+  questScreen.classList.add("hidden");
+  endingScreen.classList.remove("hidden");
+
+  endingText.innerHTML = "";
+  nextDayButton.classList.add("hidden");
+  window.scrollTo(0, 0);
+
+  if (currentDay === 2) {
+    let endingIndex = 0;
+    const text = days[currentDay].ending;
+    function typeEndingText() {
+      if (endingIndex < text.length) {
+        if (text.substring(endingIndex, endingIndex + 4) === "<br>") {
+          endingText.innerHTML += "<br>";
+          endingIndex += 4;
+        } else if (text.charAt(endingIndex) === "\n") {
+          endingText.innerHTML += "<br>";
+          endingIndex++;
+        } else {
+          endingText.innerHTML += text.charAt(endingIndex);
+          endingIndex++;
+        }
+        setTimeout(typeEndingText, 70);
+      } else {
+        nextDayButton.classList.remove("hidden");
+        window.scrollTo(0, 0);
+      }
+    }
+    typeEndingText();
+  } else {
+    endingText.innerHTML =
+      days[currentDay].ending.replace(/\n/g, "<br>");
+    nextDayButton.classList.remove("hidden");
+    window.scrollTo(0, 0);
+  }
+  nextDayButton.textContent = "▶ つぎへ";
+});
+
+nextDayButton.addEventListener("click", () => {
+  if (currentDay === days.length - 1) {
+    endingScreen.classList.add("hidden");
+    letterScreen.classList.remove("hidden");
+    return;
+  }
+
+  currentDay++;
+
+  endingScreen.classList.add("hidden");
+  introScreen.classList.remove("hidden");
+
+  messageText.classList.remove("day-text");
+  messageText.innerHTML = days[currentDay].intro;
+
+  introNextButton.textContent = "▶ つぎへ";
+  introStep = 0;
+});
+
+closeLetterButton.addEventListener("click", () => {
+  letterScreen.classList.add("hidden");
+  finalScreen.classList.remove("hidden");
+});
+
+function typeText(element, text, speed = 60) {
+  element.innerHTML = "";
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      if (text.substring(i, i + 4) === "<br>") {
+        element.innerHTML += "<br>";
+        i += 4;
+      } else if (text[i] === "\n") {
+        element.innerHTML += "<br>";
+        i++;
+      } else {
+        element.innerHTML += text[i];
+        i++;
+      }
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
