@@ -397,6 +397,26 @@ function resetQuestScreen() {
   const secretButton = secretQuestArea.querySelector(".secret-quest .clear-button");
   secretButton.disabled = true;
   secretButton.classList.add("hidden");
+
+  const mainQuests = document.querySelectorAll(".main-quest");
+
+days[currentDay].quests.forEach((quest, index) => {
+  const card = mainQuests[index];
+
+  card.querySelector("h3").textContent = quest.mainTitle;
+  card.querySelector("p:not(.quest-number)").textContent = quest.mainText;
+
+  const subArea = document.getElementById(`subQuest${index + 1}`);
+  const subCards = subArea.querySelectorAll(".sub-quest");
+
+  quest.sub.forEach((subQuest, subIndex) => {
+    subCards[subIndex].querySelector("h3").textContent = subQuest.title;
+
+    subCards[subIndex]
+      .querySelector("p:not(.quest-number)")
+      .textContent = subQuest.text;
+  });
+});
 }
 
 // 通常CLEARボタン
