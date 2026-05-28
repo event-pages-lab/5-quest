@@ -70,7 +70,7 @@ DAY 1 CLEAR!
 
     {
       mainTitle: "土佐のうまいもんを食べよ",
-      mainText: "うまいもんは、冒険者を強うする。。",
+      mainText: "うまいもんは、冒険者を強うする。",
       sub: [
         {
           title: "土佐の味に出会え",
